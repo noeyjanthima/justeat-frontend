@@ -1,0 +1,114 @@
+/* คอนเทนเนอร์หลัก */
+.ps {
+  margin-top: 8px; /* เว้นด้านบน */
+}
+
+/* หัวข้อ section */
+.ps-title {
+  font-weight: 700;
+  margin: 8px 0 12px;
+  color: #111;
+  font-size: 14px;
+}
+
+/* โหมด scroll (เลื่อนแนวนอน) */
+.ps-scroll {
+  display: grid;               /* ใช้ grid แทน flex → คุม gap ได้ดี */
+  grid-auto-flow: column;      /* จัดเรียงตามคอลัมน์ */
+  gap: 20px;                   /* ช่องว่างระหว่างการ์ด */
+  overflow-x: auto;            /* เลื่อนแนวนอนได้ */
+  padding: 10px 10px 15px;
+  scroll-snap-type: x proximity; /* เลื่อนแล้วหยุดพอดี */
+  scrollbar-width: none;         /* ซ่อน scrollbar (Firefox) */
+  -ms-overflow-style: none;      /* ซ่อน scrollbar (IE/Edge) */
+}
+.ps-scroll::-webkit-scrollbar { display: none; } /* ซ่อน scrollbar (Chrome/Safari) */
+.ps-scroll > .ps-link { scroll-snap-align: start; } /* ให้การ์ดแต่ละใบ snap */
+
+/* โหมด grid (หลายแถว) */
+.ps-grid {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.ps-grid::-webkit-scrollbar { display: none; }
+
+/* ลิงก์ห่อการ์ด */
+.ps-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* การ์ด */
+.ps-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  display: grid;
+  grid-template-rows: auto auto; /* รูป 1 แถว, meta 1 แถว */
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.ps-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.10);
+}
+
+/* ส่วนรูป */
+.ps-coverOuter { padding: 0; }
+.ps-coverInner {
+  width: 100%;                 /* ให้เต็ม cardWidth */
+  aspect-ratio: 220 / 170;     /* รักษาสัดส่วนเดิม */
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+.ps-coverInner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* รูปเต็มโดยไม่บิด */
+  display: block;
+}
+
+/* ส่วน meta (ชื่อ + เรตติ้ง) */
+.ps-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto; /* ชื่อยืด, เรตติ้งขวา */
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 18px;
+  gap: 12px;
+}
+.ps-name {
+  font-weight: 700;
+  font-size: 16px;
+  color: #1f1f1f;
+  margin-right: 12px;
+  min-width: 0;            /* ✅ ต้องมีเพื่อ ellipsis ทำงาน */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ⭐ single rating */
+.ps-ratingSingle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.ps-ratingSingle__icon { width: 20px; height: 20px; color: #f4b400; }
+.ps-ratingSingle__icon path { fill: #f4b400; }
+.ps-ratingSingle__num { font-size: 16px; color: #333; font-weight: 500; }
+
+/* Responsive (จอเล็ก) */
+@media (max-width: 768px) {
+  .ps-card {
+    grid-template-rows: 110px auto; /* ย่อความสูงของรูป */
+  }
+}
